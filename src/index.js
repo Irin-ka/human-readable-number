@@ -56,7 +56,7 @@ module.exports = function toReadable (number) {
       }
       return res;*/
 
-      let NS = [
+      let arr = [
         {value: 1000000000000000000000, str: "sextillion"},
         {value: 1000000000000000000, str: "quintillion"},
         {value: 1000000000000000, str: "quadrillion"},
@@ -95,7 +95,7 @@ module.exports = function toReadable (number) {
       ];
     
       var result = '';
-      for (var n of NS) {
+      for (var n of arr) {         
         if(number>=n.value){
           if(number<=20){
             result += n.str;
@@ -104,19 +104,20 @@ module.exports = function toReadable (number) {
           }else{
             var t =  Math.floor(number / n.value);
             var d = number % n.value;
-            if(d>0){
-            if(number>100)
-              return toReadable(t) + ' ' + n.str +' ' + toReadable(d);
-              else return  n.str +' ' + toReadable(d);
+            if(d>=0){
+            if(number>=100)
+              return (toReadable(t) + ' ' + n.str +' ' + toReadable(d)).trim();
+              else return  (n.str +' ' + toReadable(d)).trim();
             }else{
             
-              return toReadable(t) + ' ' +number +' '+ n.str;
+              return (toReadable(t) + ' ' +number +' '+ n.str).trim();
             }
     
           }
         }
       }
-      return result;
+    
+      return result.trim();
 
-
+    
     }
